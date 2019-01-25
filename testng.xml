@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="SuiteName" parallel="tests">
+	<test name="Login Test" allow-return-values="true">
+		<classes>
+			<class name="com.mav.pom.testcases.LoginTest" />
+		</classes>
+	</test>
+	
+	<test name="Publish_Item" allow-return-values="true">
+		<classes>
+			<class name="com.mav.pom.testcases.Publish_Item" />
+		</classes>
+	</test>
+</suite>
+

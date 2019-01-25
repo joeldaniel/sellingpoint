@@ -1,0 +1,24 @@
+Hub->
+java -Dwebdriver.chrome.driver=drivers/chromedriver.exe -jar jars/selenium-server-standalone-2.53.1.jar -role hub -hubConfig hub.json
+
+Node 1->
+java -Dwebdriver.ie.driver=drivers/IEDriverServer.exe -jar jars/selenium-server-standalone-2.53.1.jar -role rc -nodeConfig node1.json
+
+Node 2->
+java -Dwebdriver.gecko.driver=drivers/geckodriver.exe -jar jars/selenium-server-standalone-2.53.1.jar -role rc -nodeConfig node2.json
+
+Node 3->
+java -Dwebdriver.chrome.driver=drivers/chromedriver.exe -jar jars/selenium-server-standalone-2.53.1.jar -role rc -nodeConfig node3.json
+
+//-----------------------------------------------------------
+
+java -Dwebdriver.chrome.driver=E:/chromedriver.exe -jar E:/selenium-server-standalone-2.53.0.jar -role hub -hubConfig hub.json
+
+Node 1->
+java -Dwebdriver.ie.driver=E:/IEDriverServer.exe -jar E:/selenium-server-standalone-2.53.0.jar -role rc -nodeConfig node1.json
+
+Node 2->
+java -Dwebdriver.gecko.driver=E:/geckodriver.exe -jar E:/selenium-server-standalone-2.53.0.jar -role rc -nodeConfig node2.json
+
+Node 3->
+java -Dwebdriver.chrome.driver=E:/chromedriver.exe -jar E:/selenium-server-standalone-2.53.0.jar -role rc -nodeConfig node3.json
