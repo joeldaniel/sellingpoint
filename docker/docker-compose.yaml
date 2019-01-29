@@ -7,7 +7,7 @@ services:
       - 3306:3306
     volumes:
       - /opt/docker/mysql:/var/lib/mysql
-   restart: always
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=sonar
