@@ -29,9 +29,9 @@ services:
     image: "selenium/node-firefox:2.53.0"
     depends_on:
       - hub
-    environment
+    environment:
       HUB_PORT_4444_TCP_ADDR: hub
-    restart: always 
+    restart: always
   tomcat:
     build: ./tomcat
     container_name: tomcat    
@@ -39,7 +39,7 @@ services:
       - 8080:8080
     links:
       - db:mysql
-    restart: always 
+    restart: always
     environment:
       - SP_JDBC_URL=jdbc:mysql://mysql:3306/sellingpoint-db?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
       - SP_DB_USERNAME=root
