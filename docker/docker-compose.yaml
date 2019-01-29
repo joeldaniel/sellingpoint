@@ -1,0 +1,45 @@
+version: '2'
+services:
+  db:
+    build: ./mysql
+    hostname: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - /opt/docker/mysql:/var/lib/mysql
+   restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=sonar
+      - MYSQL_PASSWORD=sonar
+      - MYSQL_DATABASE=sonar
+  hub:
+    image: "selenium/hub:2.53.0"
+    ports:
+      - 4444:4444
+    restart: always 
+  chrome:
+    image: "selenium/node-chrome:2.53.0"
+    depends_on:
+      - hub
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+    restart: always 
+  firefox:
+    image: "selenium/node-firefox:2.53.0"
+    depends_on:
+      - hub
+    environment
+      HUB_PORT_4444_TCP_ADDR: hub
+    restart: always 
+  tomcat:
+    build: ./tomcat    
+    ports:
+      - 8080:8080
+    links:
+      - db:mysql
+    restart: always 
+    environment:
+      - SP_JDBC_URL=jdbc:mysql://mysql:3306/sellingpoint-db?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+      - SP_DB_USERNAME=root
+      - SP_DB_PASSWORD=password
