@@ -33,7 +33,8 @@ services:
       HUB_PORT_4444_TCP_ADDR: hub
     restart: always 
   tomcat:
-    build: ./tomcat    
+    build: ./tomcat
+    container_name: tomcat    
     ports:
       - 8080:8080
     links:
