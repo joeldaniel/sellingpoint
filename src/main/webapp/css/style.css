@@ -1,6 +1,11 @@
 
 ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
+.navbar-inverse {
+    background: black; 
+   
+}
+
 .login-tab {
 	margin: 0 auto;
 	max-width: 380px;
@@ -73,13 +78,7 @@ text-transform:uppercase;
 
 /* bootstrap overrides */
 
-.navbar-inverse {
-    background: black; 
-    /* background: #000; */ 
-    /* gopal */
-    /*padding-top:5px;
-    padding-bottom:3px;*/
-}
+
 
 .navbar-inverse .navbar-inner {
     -webkit-box-shadow: 0 0 0;
