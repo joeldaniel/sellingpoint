@@ -2,7 +2,8 @@
 ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
 .navbar-inverse {
-    background: black; 
+    /* Based on the Jira request SPD-3 */
+    background: red; 
    
 }
 
