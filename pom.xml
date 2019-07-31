@@ -287,15 +287,7 @@
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
-			</plugin>
-            <plugin>            
-  				<groupId>org.apache.maven.plugins</groupId>
-  				<artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                  <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
-                </configuration>
-			</plugin>
+			</plugin>           
 		</plugins>
 	</build>
 </project>
