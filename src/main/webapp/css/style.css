@@ -3,7 +3,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu{ display: block; }
 
 .navbar-inverse {
     /* Based on the Jira request SPD-5 */
-    background: black; 
+    background: green; 
    
 }
 
