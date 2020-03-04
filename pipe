@@ -1,0 +1,60 @@
+/* import shared library */
+@Library('jenkins-shared-library')_
+
+pipeline {
+            agent {
+              label 'master'
+            }
+            triggers {
+              pollSCM ''
+            }
+            stages {
+              stage('Build App') {
+                steps {
+                  slackSend color: "0000FF", message: "Build ${env.JOB_NAME} - ${env.BUILD_NUMBER} Started: <${env.BUILD_URL}|Open>"
+                  git branch: 'eap-7', url: 'http://192.168.1.50:13000/admin1/project_tasks'
+                  sh "mvn install -DskipTests=true"
+                  sh 'printenv'
+                }
+              }
+              stage('Test') {
+                steps {
+                  sh "mvn test"
+                  step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                }
+              }
+              stage('Code Analysis') {
+                steps {
+                  script {
+                    sh "mvn sonar:sonar -Dsonar.host.url=http://192.168.1.50:19000 -DskipTests=true"
+                  }
+                }
+              }
+              stage('Archive App') {
+                steps {
+                  nexusArtifactUploader artifacts: [[artifactId: 'tasks', classifier: 'SNAPSHOT', file: 'target/openshift-tasks.war', type: 'war']], credentialsId: 'Nexus', groupId: 'demo', nexusUrl: '192.168.1.50:18081', nexusVersion: 'nexus3', protocol: 'http', repository: 'project-demo', version: '1.0'
+                }
+              }
+              stage('Build Image') {
+                steps {
+                  sh "docker build --rm -t 192.168.1.50:5000/tasks-v1.0 ."
+                }
+              }
+              stage('Upload Image to Registry') {
+                steps {
+                  sh "docker push --disable-content-trust 192.168.1.50:5000/tasks-v1.0"
+                }
+              }
+            }
+            post {
+              failure {
+              /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+                slackSend color: "#FF0000", message: "Build ${env.JOB_NAME} - ${env.BUILD_NUMBER} Failed: <${env.BUILD_URL}|Open>"
+              }
+              success {
+              /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+                slackSend color: "#7CFC00", message: "Build ${env.JOB_NAME} - ${env.BUILD_NUMBER} Successful: <${env.BUILD_URL}|Open>"
+              }
+            }
+          }
+
